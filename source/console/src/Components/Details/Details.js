@@ -99,6 +99,7 @@ class Details extends React.Component {
                 concurrency:null,
                 rampUp:null,
                 holdFor: null,
+                throughput: null,
                 endpoint:null,
                 method:null,
                 body:{},
@@ -118,6 +119,7 @@ class Details extends React.Component {
             data.concurrency = data.testScenario.execution[0].concurrency;
             data.rampUp = data.testScenario.execution[0]['ramp-up'];
             data.holdFor = data.testScenario.execution[0]['hold-for'];
+            data.throughput = data.testScenario.execution[0]['throughput'];
             const testDuration = this.caculateTestDurationSeconds([data.rampUp, data.holdFor]);
             if(data.nextRun) {
                 const [ scheduleDate, scheduleTime ] = data.nextRun.split(' ');
@@ -192,6 +194,7 @@ class Details extends React.Component {
                     concurrency: data.concurrency,
                     "ramp-up": data.rampUp,
                     "hold-for": data.holdFor,
+                    "throughput": data.throughput,
                     scenario: data.testName,
                 }],
                 scenarios: {
@@ -393,6 +396,10 @@ class Details extends React.Component {
                             <Row className="detail">
                                 <Col sm="4"><b>HOLD FOR</b></Col>
                                 <Col sm="8">{ data.holdFor }</Col>
+                            </Row>
+                            <Row className="detail">
+                                <Col sm="4"><b>THROUGHPUT</b></Col>
+                                <Col sm="8">{ data.throughput }</Col>
                             </Row>
                         </Col>
                     </Row>

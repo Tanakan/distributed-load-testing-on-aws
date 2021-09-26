@@ -65,6 +65,7 @@ class Create extends React.Component {
                     holdForUnits: this.props.location.state.data.holdFor.slice(-1),
                     rampUp: this.props.location.state.data.rampUp.slice(0, -1),
                     rampUpUnits: this.props.location.state.data.rampUp.slice(-1),
+                    throughput: this.props.location.state.data.throughput,
                     endpoint: this.props.location.state.data.endpoint,
                     method: this.props.location.state.data.method,
                     body: JSON.stringify(this.props.location.state.data.body, null, 2),
@@ -96,6 +97,7 @@ class Create extends React.Component {
                     holdFor: 0,
                     holdForUnits:'m',
                     rampUp: 0,
+                    throughput:0,
                     rampUpUnits: 'm',
                     endpoint: '',
                     method:'GET',
@@ -151,6 +153,7 @@ class Create extends React.Component {
                     concurrency: parseInt(values.concurrency),
                     "ramp-up": String(parseInt(values.rampUp)).concat(values.rampUpUnits),
                     "hold-for": String(parseInt(values.holdFor)).concat(values.holdForUnits),
+                    "throughput": parseInt(values.throughput),
                     scenario: values.testName
                 }],
                 scenarios: {
@@ -475,6 +478,24 @@ class Create extends React.Component {
                                 </InputGroup>
                                 <FormText color="muted">
                                     Time to hold target concurrency.
+                                </FormText>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="throughput">Throughput</Label>
+                                <InputGroup className="input-group-short">
+                                    <Input
+                                        value={this.state.formValues.throughput}
+                                        className="form-short"
+                                        type="number"
+                                        min={1}
+                                        name="throughput"
+                                        id="throughput"
+                                        required
+                                        onChange={this.handleInputChange}
+                                    />
+                                </InputGroup>
+                                <FormText color="muted">
+                                    Apply RPS shaper, limiting maximum RPS to throughput, requires ramp-up and/or hold-for
                                 </FormText>
                             </FormGroup>
                             <FormGroup>
